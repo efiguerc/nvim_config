@@ -12,6 +12,8 @@ return {
     },
     opts = {
       debug = false,
+      -- Default model
+      model = "claude-haiku-4.5",
       -- Customize the chat window
       window = {
         layout = 'vertical',      -- 'vertical', 'horizontal', 'float'
