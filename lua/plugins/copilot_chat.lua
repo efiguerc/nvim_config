@@ -11,11 +11,19 @@ return {
       "nvim-telescope/telescope.nvim", -- optional but recommended for prompt picker
     },
     config = function()
+      local copilot_router = require("copilot_router")
+
       local chat = require("CopilotChat")
+
+      -- Store the current model choice
+      local current_model = nil
+
       chat.setup({
         debug = false,
+
         -- Default model
         model = "claude-haiku-4.5",
+
         -- Customize the chat window
         window = {
           layout = 'vertical',      -- 'vertical', 'horizontal', 'float'
@@ -25,8 +33,15 @@ return {
           col = 2,
           border = "rounded",
         },
-        -- Optional: customize headers or style
-        question_header = "  You ",
+
+        -- Question callback to dynamically select model
+        question_header = function()
+          local model_name = copilot_router.get_model_display_name(
+            current_model or "claude-haiku-4.5"
+          )
+          return "## User (" .. model_name .. ")"
+        end,
+
         answer_header = "  Copilot ",
         -- Rails-aware prompts you can reuse via the Telescope picker or keymaps below
         prompts = {
