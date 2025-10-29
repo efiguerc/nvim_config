@@ -10,44 +10,43 @@ return {
       "zbirenbaum/copilot.lua",
       "nvim-telescope/telescope.nvim", -- optional but recommended for prompt picker
     },
-    opts = {
-      debug = false,
-      -- Default model
-      model = "claude-haiku-4.5",
-      -- Customize the chat window
-      window = {
-        layout = 'vertical',      -- 'vertical', 'horizontal', 'float'
-        width = 0.4,              -- 30% of screen width
-        relative = "editor",
-        row = 2,
-        col = 2,
-        border = "rounded",
-      },
-      -- Optional: customize headers or style
-      question_header = "  You ",
-      answer_header = "  Copilot ",
-      -- Rails-aware prompts you can reuse via the Telescope picker or keymaps below
-      prompts = {
-        ExplainRails = {
-          prompt = "Explain what this Ruby on Rails code does, covering models, controllers, views, routes, callbacks, validations, and queries if relevant. Be concise but thorough.",
-        },
-        ReviewRails = {
-          prompt = "Review the selected Ruby/Rails code. Identify potential bugs, security issues (SQL injection, mass assignment, CSRF), N+1 queries, performance problems, and deviations from Rails conventions. Provide concrete, actionable suggestions with improved code.",
-        },
-        AddRSpecTests = {
-          prompt = "Write RSpec tests for the selected Ruby/Rails code. Use factories if applicable, structure with describe/context/it, and focus on behavior and edge cases. Only output the spec code.",
-        },
-        RefactorRails = {
-          prompt = "Refactor the selected Ruby/Rails code for readability, maintainability, and performance. Prefer idiomatic Ruby and Rails conventions. Provide the refactored code and a brief rationale.",
-        },
-        ReviewGitDiff = {
-          prompt = "Perform a thorough code review of the following Git diff. Focus on correctness, tests, security, performance, and Rails conventions. Provide line-referenced comments and suggested patches.",
-        },
-      },
-    },
-    config = function(_, opts)
+    config = function()
       local chat = require("CopilotChat")
-      chat.setup(opts)
+      chat.setup({
+        debug = false,
+        -- Default model
+        model = "claude-haiku-4.5",
+        -- Customize the chat window
+        window = {
+          layout = 'vertical',      -- 'vertical', 'horizontal', 'float'
+          width = 0.4,              -- 30% of screen width
+          relative = "editor",
+          row = 2,
+          col = 2,
+          border = "rounded",
+        },
+        -- Optional: customize headers or style
+        question_header = "  You ",
+        answer_header = "  Copilot ",
+        -- Rails-aware prompts you can reuse via the Telescope picker or keymaps below
+        prompts = {
+          ExplainRails = {
+            prompt = "Explain what this Ruby on Rails code does, covering models, controllers, views, routes, callbacks, validations, and queries if relevant. Be concise but thorough.",
+          },
+          ReviewRails = {
+            prompt = "Review the selected Ruby/Rails code. Identify potential bugs, security issues (SQL injection, mass assignment, CSRF), N+1 queries, performance problems, and deviations from Rails conventions. Provide concrete, actionable suggestions with improved code.",
+          },
+          AddRSpecTests = {
+            prompt = "Write RSpec tests for the selected Ruby/Rails code. Use factories if applicable, structure with describe/context/it, and focus on behavior and edge cases. Only output the spec code.",
+          },
+          RefactorRails = {
+            prompt = "Refactor the selected Ruby/Rails code for readability, maintainability, and performance. Prefer idiomatic Ruby and Rails conventions. Provide the refactored code and a brief rationale.",
+          },
+          ReviewGitDiff = {
+            prompt = "Perform a thorough code review of the following Git diff. Focus on correctness, tests, security, performance, and Rails conventions. Provide line-referenced comments and suggested patches.",
+          },
+        },
+      })
 
       local select = require("CopilotChat.select")
 
