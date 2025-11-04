@@ -279,10 +279,8 @@ return  {
     config = function()
       require('lualine').setup({
         options = {
-          theme  = 'powerline',
-          component_separators = { left = "│", right = "│" },
-          -- section_separators = { left = "", right = "" },
           globalstatus = false,
+          theme  = 'powerline',
         },
         sections = {
           lualine_a = { "mode" },
